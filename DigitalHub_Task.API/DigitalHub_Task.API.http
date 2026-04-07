@@ -1,0 +1,6 @@
+@DigitalHub_Task.API_HostAddress = http://localhost:5182
+
+GET {{DigitalHub_Task.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
