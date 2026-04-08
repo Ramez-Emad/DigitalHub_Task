@@ -13,6 +13,8 @@ public class AppDbContext(DbContextOptions<AppDbContext> _options) : DbContext(_
 
     public DbSet<Enrollment> Enrollments { get; set; }
 
+    public DbSet<AuditLog> AuditLogs { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
