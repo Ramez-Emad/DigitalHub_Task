@@ -27,7 +27,7 @@ public class AuditLogCommandHandler : IRequestHandler<AuditLogCommand, Unit>
             Metadata = command.Metadata
         };
 
-        //Thread.Sleep(1500);
+        Thread.Sleep(1500);
 
         _repo.AddAuditLog(log);
         await _repo.SaveChangesAsync(ct);
