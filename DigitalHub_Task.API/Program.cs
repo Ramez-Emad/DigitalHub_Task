@@ -1,5 +1,7 @@
 using DigitalHub_Task.Application;
+using DigitalHub_Task.Application.Interfaces;
 using DigitalHub_Task.Application.Interfaces.Repositories;
+using DigitalHub_Task.Infrastructure.BackgroundServices;
 using DigitalHub_Task.Infrastructure.Data;
 using DigitalHub_Task.Infrastructure.Repositories;
 using MediatR;
@@ -41,6 +43,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 #region Repositories
 
 builder.Services.AddScoped<IEnrollmentRepository, EnrollmentRepository>();
+builder.Services.AddScoped<IAuditLogRepository, AuditLogRepository>();
 
 #endregion
 
@@ -51,6 +54,14 @@ builder.Services.AddMediatR(cfg =>
 
 #endregion
 
+
+#region Background Service & Audit Queue
+
+builder.Services.AddSingleton<AuditLogQueue>();
+builder.Services.AddSingleton<IAuditLogQueue>(sp => sp.GetRequiredService<AuditLogQueue>());
+builder.Services.AddHostedService<AuditLogWorker>(); 
+
+#endregion
 
 
 var app = builder.Build();
