@@ -1,3 +1,5 @@
+using DigitalHub_Task.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,9 +24,24 @@ builder.Services.AddSwaggerGen(options =>
 
 #endregion
 
+#region Add AppDbContext
 
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ??
+  throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(connectionString));
+
+#endregion
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    await db.Database.MigrateAsync();
+}
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
