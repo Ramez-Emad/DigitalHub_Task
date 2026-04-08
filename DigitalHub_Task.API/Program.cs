@@ -1,4 +1,8 @@
+using DigitalHub_Task.Application;
+using DigitalHub_Task.Application.Interfaces.Repositories;
 using DigitalHub_Task.Infrastructure.Data;
+using DigitalHub_Task.Infrastructure.Repositories;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi;
 
@@ -33,6 +37,21 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(connectionString));
 
 #endregion
+
+#region Repositories
+
+builder.Services.AddScoped<IEnrollmentRepository, EnrollmentRepository>();
+
+#endregion
+
+#region MediatR
+
+builder.Services.AddMediatR(cfg =>
+    cfg.RegisterServicesFromAssembly(typeof(ApplicationLayerProjectReference).Assembly));
+
+#endregion
+
+
 
 var app = builder.Build();
 
