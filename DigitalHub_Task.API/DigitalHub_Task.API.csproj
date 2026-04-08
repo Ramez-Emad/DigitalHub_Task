@@ -15,10 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\DigitalHub_Task.Application\DigitalHub_Task.Application.csproj" />
     <ProjectReference Include="..\DigitalHub_Task.Infrastructure\DigitalHub_Task.Infrastructure.csproj" />
   </ItemGroup>

@@ -11,6 +11,8 @@ public class AppDbContext(DbContextOptions<AppDbContext> _options) : DbContext(_
     public DbSet<User> Users { get; set; }
     public DbSet<Course> Courses { get; set; }
 
+    public DbSet<Enrollment> Enrollments { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
